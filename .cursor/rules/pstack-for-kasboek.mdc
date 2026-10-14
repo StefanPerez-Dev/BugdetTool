@@ -1,0 +1,35 @@
+---
+description: pstack playbooks and skills that matter for Kasboek
+alwaysApply: true
+---
+
+# pstack for Kasboek
+
+Install: `/add-plugin pstack` then `/setup-pstack`.
+
+Default entry: **`/poteto-mode`** for any non-trivial task.
+
+## Priority skills for this app
+
+| Skill / playbook | When |
+|---|---|
+| `/poteto-mode` + **feature** | New API endpoints, UI flows (inbox, ledger, envelopes) |
+| `/poteto-mode` + **bug fix** | Wrong category, balance math, import dupes — repro first |
+| `/create-verification-skill` | After the app boots reliably; generate live verify harness |
+| `/tdd` | Money/cents, categorization rules, import dedupe |
+| `/how` / `/why` | Before editing categorize, store, or import paths |
+| `/architect` + `/arena` | Choosing OCR/PDF vs vision, or schema changes |
+| `/swarm` | Parallel verify of inbox + ledger + envelopes |
+| `/unslop` / `/no-comments` | Keep Go/React lean |
+| `/blast-radius` | Budget/amount changes that affect month totals |
+| `/babysit` + **opening a pr** | Drive PRs to merge-ready |
+| **visual parity** playbook | Matching Kasboek v2 design prototype |
+| **autonomous run** | Overnight import/categorize improvements |
+
+## Project invariants agents must keep
+
+- Local only: no cloud deploy, no production build required.
+- Money stored as **integer cents** in Postgres; display as EUR nl-NL.
+- Categorize: **rules first**, Ollama only for unmatched descriptions.
+- Postgres for this app is on **port 5433** (compose). Do not hijack :5432.
+- Dutch UI copy unless asked otherwise.

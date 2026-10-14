@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:18.4
+    container_name: kasboek-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kasboek
+      POSTGRES_PASSWORD: kasboek
+      POSTGRES_DB: kasboek
+    ports:
+      - "5433:5432"
+    volumes:
+      - kasboek_pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kasboek -d kasboek"]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  kasboek_pgdata:
